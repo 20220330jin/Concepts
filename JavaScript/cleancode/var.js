@@ -8,3 +8,5 @@ let name = '이름';
 let name = '이름';
 let name = '이름';
 let name = '이름';
+
+console.log(name);
