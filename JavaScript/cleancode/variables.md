@@ -93,3 +93,76 @@ person.age = 40;
 - 전역으로 변수를 선언한 경우, 다른 JS파일에서도 접근 가능
 - window에 전역변수가 저장되어있음
 - 전역변수는 어디서나 접근가능하기 때문에 더럽히면 안된다
+
+## 임시변수
+- 특정 공간에서 scope를 가지고 있는 것?
+- 임시변수를 제거해야 하는 이유
+    - 명령형으로 가득한 로직이 나오기 때문에
+    - 어디서 어떻게 잘못되었는지 디버깅이 어렵다
+    - 추가적인 코드를 작성하고 싶은 유혹에 빠진다
+- 함수를 하나의 역할만 하도록 해야 한다
+    - 코드의 유지보수
+- 함수를 나누고, 바로 return 함으로써 임시변수를 제거하자
+- 고차함수 사용도 좋음
+    - map, filter, reduce
+```javascript
+function getElements(){
+    const result = {};
+
+    result.title = document.querySelector('.title');
+    result.text = document.querySelector('.text');
+    result.value = document.querySelector('.value');
+
+    return result;
+}
+
+////////////////////////////
+
+function getElements(){
+    const result = {
+        title: document.querySelector('.title'),
+        text: document.querySelector('.text'),
+        value: document.querySelector('.value')
+    };
+
+    return result;
+}
+
+///////////////////////////
+
+function getElements(){
+    return {
+        title: document.querySelector('.title'),
+        text: document.querySelector('.text'),
+        value: document.querySelector('.value')
+    };
+}
+```
+
+```javascript
+function getRondomNumber(min, max){
+    const randomNumber = Math.floor(Math.random() * (max + 1) + min);
+    
+    return randomNumber;
+}
+// 중간에 타인에 의해 수정되면 문제가 생길 수 있다
+```
+
+```javascript
+// 하나의 역할만 할 수 있는 함수로 만들자!
+```
+
+## 호이스팅
+- 런타임시(동작시) 선언과 할당이 분리된 것
+- 런타임시 선언이 최상단으로 끌어올려진다
+    - 코드 작성시 예상치 못한 실행결과가 나온다
+- var로 선언한 변수가 초기화가 제대로 되지 않았을 때, undefined
+
+- 함수 표현식을 이용하자
+```javascript
+const sum = function(){
+    return 1 + 2;
+}
+console.log(sum());
+```
+- 
